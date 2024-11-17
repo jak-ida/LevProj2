@@ -21,7 +21,7 @@
                 $table->foreignId('make_id')->constrained('makes')->onDelete('cascade');
 
                 // Foreign key to the Model table
-                $table->foreignId('model_id')->constrained('models')->onDelete('cascade');
+                $table->foreignId('model_id')->constrained('car_models')->onDelete('cascade');
 
                 // Vehicle details fields
                 $table->decimal('price', 10); // Price

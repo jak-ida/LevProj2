@@ -29,7 +29,8 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{-- {{ $slot}} --}}
+                @yield('content') <!-- This is where child content will be injected -->
             </main>
         </div>
     </body>

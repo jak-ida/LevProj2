@@ -9,7 +9,10 @@ class VehicleSeeder extends Seeder
 {
     public function run()
     {
+
         // Generate 50 random vehicles
-        Vehicle::factory()->count(50)->create();
+        Vehicle::factory()->count(20)->create();
     }
+
+
 }
