@@ -30,15 +30,11 @@ class CarModel extends Model
         return $this->belongsTo(Make::class);
     }
 
-    // //Relatiionship with Images
-    // public function images()
-    // {
-    //     return $this->hasMany(Image::class);
-    // }
-
     //Relatinship with Vehicles
     public function vehicles(){
-        return $this->belongsTo(Vehicle::class);
+        return $this->hasMany(Vehicle::class);
     }
+
+
 
 }

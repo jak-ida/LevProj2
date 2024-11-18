@@ -18,7 +18,18 @@ class Vehicle extends Model
         'year',
         'condition',
         'description',
+        'image'
     ];
+
+    // Automatically set user_id when creating a vehicle
+    // protected static function booted()
+    // {
+    //     static::creating(function ($vehicle) {
+    //         if (auth()->check()) {
+    //             $vehicle->user_id = auth()->id();  // Set the logged-in user's ID automatically
+    //         }
+    //     });
+    // }
 
     public function user()
     {
@@ -32,7 +43,7 @@ class Vehicle extends Model
 
     public function model()
     {
-        return $this->belongsTo(Model::class, 'model_id');
+        return $this->belongsTo(CarModel::class, 'model_id');
     }
 
     public function images()
