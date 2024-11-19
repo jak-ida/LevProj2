@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Vehicle;
 use App\Models\Make;
@@ -9,20 +10,40 @@ use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
-    // Display all vehicles
-    public function index()
+    // Display all vehicles for non-logged in users
+    public function home()
     {
         $vehicles = Vehicle::paginate(10);
+        return view('welcome', compact('vehicles'));
+    }
+    // Display all vehicles that belong to logged in users.
+    public function index()
+    {
+        // Get the logged-in user's ID
+        $userId = Auth::id();
+
+        // Fetch vehicles where the `user_id` matches the logged-in user
+        $vehicles = Vehicle::where('user_id', $userId)->paginate(10);
+
         return view('vehicles.index', compact('vehicles'));
+    }
+    public function show(Vehicle $vehicle)
+    {
+        return view('vehicles.show', compact('vehicle'));
     }
 
     // Show the form for creating a new vehicle
-    public function create()
-    {
+    public function create(Request $request)
+    {   //Get all makes for the dropdown
         $makes = Make::all();
-        $models = CarModel::all();
 
-        return view('vehicles.create', compact('makes', 'models'));
+        //Check if a make is selected
+        $makeId = $request->input('make_id');
+
+        //Filter models based on the selected make, or get all models if no make is selected.
+        $models = $makeId ? CarModel::where('make_id', $makeId)->get() : CarModel::all();
+
+        return view('vehicles.create', compact('makes', 'models', 'makeId'));
     }
 
     // Store a newly created vehicle
@@ -31,7 +52,7 @@ class VehicleController extends Controller
         if (Auth::check()) {
             $user_id = Auth::id();  // Use the Auth facade directly to get the logged-in user's ID
         } else {
-            // If the user is not authenticated, you could return an error or redirect
+            // If the user is not authenticated, return an error or redirect
             return redirect()->route('login')->with('error', 'You must be logged in to add a vehicle.');
         }
 
@@ -51,12 +72,14 @@ class VehicleController extends Controller
         $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
         $path = $request->file('image')->storeAs('images', $fileName, 'public');
 
+
         // Add 'user_id' to the data before creating the vehicle
         $vehicleData = $request->all();
         $vehicleData['user_id'] = $user_id;  // Set the logged-in user's ID here
+        $vehicleData['image'] = '/storage/' . $path; //Set the vehicle's image path to the storage file.
 
         // Create the vehicle
-        $vehicle = Vehicle::create($vehicleData);
+        Vehicle::create($vehicleData);
 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle added successfully.');
     }
@@ -83,7 +106,7 @@ class VehicleController extends Controller
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-        $data = $request->only(['make_id', 'model_id', 'price', 'mileage', 'year', 'condition', 'description']);
+        $data = $request->only(['make_id', 'model_id', 'price', 'mileage', 'year', 'condition', 'description', 'image']);
 
         // Update image if a new file is provided
         if ($request->hasFile('image')) {
@@ -91,6 +114,7 @@ class VehicleController extends Controller
             $path = $request->file('image')->storeAs('images', $fileName, 'public');
             $data['image'] = '/storage/' . $path;
         }
+        dd($request->all());
 
         $vehicle->update($data);
 

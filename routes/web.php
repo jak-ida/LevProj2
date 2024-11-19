@@ -5,9 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [VehicleController::class, 'home'])->name('welcome');
+//View to show the details of the car
+Route::get('/vehicles/{vehicle}', [VehicleController::class, 'show'])->name('vehicles.show');
+
 
 // Use auth middleware for logged in User.
 Route::middleware(['auth', 'verified'])->group(function () {

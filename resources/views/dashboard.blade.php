@@ -1,13 +1,13 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{ __('Dashboard') }}
+        {{ __('Dasheboard') }}
     </h2>
 </x-slot>
 
-{{-- style="background-image: url('{{ asset($vehicle->background_image) }}'); background-attachment: fixed; background-size: cover; background-position: center;"> --}}
+{{-- style="background-image: url('{{ asset($vehicle->background_image) }}'); background-attachment: fixed; background-size: cover; background-position: center;">
 <div class="py-12">
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
@@ -33,4 +33,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
