@@ -42,7 +42,7 @@
                         @if ($models->isEmpty())
                             <p>No models available for this make.</p>
                         @else
-                            <option value="{{ $model->id }}">{{ $model->name }}</option>
+                            <option value="{{ $model->id }}">{{ $model->name}}</option>
                         @endif
                     @endforeach
                 </select>

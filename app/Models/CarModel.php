@@ -19,22 +19,14 @@ class CarModel extends Model
         'condition',
         'description',
     ];
-    //Relatiionship with User
-    // public function user(){
 
-    //     return $this->belongsTo(User::class);
-    // }
-    //Relatiionship with Make
+    //Relationship with Makes
     public function make(){
-
-        return $this->belongsTo(Make::class);
+        return $this->belongsTo(Make::class, 'make_id');
     }
 
-    //Relatinship with Vehicles
+    //Relationship with Vehicles
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
-
-
-
 }

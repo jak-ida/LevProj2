@@ -9,7 +9,7 @@ class CarModelFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'make_id' => \App\Models\Make::factory(), // Relates to a make
+            'make_id' => \App\Models\Make::factory(), // Generates a make for the model that is being created.
         ];
     }
 }

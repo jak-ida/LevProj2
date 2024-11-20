@@ -21,16 +21,6 @@ class Vehicle extends Model
         'image'
     ];
 
-    // Automatically set user_id when creating a vehicle
-    // protected static function booted()
-    // {
-    //     static::creating(function ($vehicle) {
-    //         if (auth()->check()) {
-    //             $vehicle->user_id = auth()->id();  // Set the logged-in user's ID automatically
-    //         }
-    //     });
-    // }
-
     public function user()
     {
         return $this->belongsTo(User::class);
