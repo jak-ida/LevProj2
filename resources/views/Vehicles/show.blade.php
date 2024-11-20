@@ -37,7 +37,7 @@
                 <div class="mt-6">
                     <a href="{{  url()->previous() ?? route('welcome') }}"
                        class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-                       Back to All Vehicles
+                       Back to Vehicles
                     </a>
                 </div>
             </div>

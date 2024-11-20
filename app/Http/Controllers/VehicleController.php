@@ -94,32 +94,39 @@ class VehicleController extends Controller
     }
 
     // Update an existing vehicle
-    public function update(Request $request, Vehicle $vehicle)
-    {
-        $request->validate([
-            'make_id' => 'required|exists:makes,id',
-            'model_id' => 'required|exists:car_models,id',
-            'price' => 'required|numeric',
-            'year' => 'required|integer',
-            'mileage' => 'required|integer',
-            'condition' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-        $data = $request->only(['make_id', 'model_id', 'price', 'mileage', 'year', 'condition', 'description', 'image']);
+public function update(Request $request, Vehicle $vehicle)
+{
+    // Validate the request data
+    $validatedData = $request->validate([
+        'make_id' => 'nullable|exists:makes,id',
+        'model_id' => 'nullable|exists:car_models,id',
+        'price' => 'nullable|numeric',
+        'year' => 'nullable|integer',
+        'mileage' => 'nullable|integer',
+        'condition' => 'nullable|string',
+        'description' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        // Update image if a new file is provided
-        if ($request->hasFile('image')) {
-            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('images', $fileName, 'public');
-            $data['image'] = '/storage/' . $path;
-        }
-        dd($request->all());
+    // Merge existing data with new data
+    $data = array_merge($vehicle->toArray(), $validatedData);
 
-        $vehicle->update($data);
-
-        return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully.');
+    // Update image if a new file is provided
+    if ($request->hasFile('image')) {
+        $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images', $fileName, 'public');
+        $data['image'] = '/storage/' . $path;
+    } else {
+        $data['image'] = $vehicle->image; // Retain the old image if no new file is uploaded
     }
+
+    // Update the vehicle record
+    $vehicle->update($data);
+
+    // Redirect with a success message
+    return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully.');
+}
+
 
     // Delete a vehicle
     public function destroy(Vehicle $vehicle)

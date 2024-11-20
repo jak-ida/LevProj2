@@ -96,11 +96,19 @@
                     class="w-full mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     id="image" name="image" required>
             </div>
-
+            <!-- Back Button -->
             <div class="flex justify-end">
-                <button type="submit"
-                    class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Save
-                    Vehicle</button>
+                <div class="mt-2 mr-2">
+                    <a href="{{ url()->previous() ?? route('welcome') }}"
+                        class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
+                        Back to Vehicles
+                    </a>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Save
+                        Vehicle</button>
+                </div>
             </div>
         </form>
     </div>
