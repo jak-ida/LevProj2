@@ -11,11 +11,12 @@ class Make extends Model
 
     protected $fillable = [
         'name',
-        'make_id'
+        //'make_id'
     ];
 
     //Relatiionship with Model
     public function model(){
-        return $this->hasMany(Model::class, 'model_id');
+        return $this->hasMany(Model::class);
+        //return $this->hasMany(Model::class, 'model_id');
     }
 }

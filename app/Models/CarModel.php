@@ -10,14 +10,15 @@ class CarModel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        //'user_id',
         'make_id',
-        'model_id',
-        'price',
-        'mileage',
-        'year',
-        'condition',
-        'description',
+        //'model_id',
+        'name',
+        //'price',
+        //'mileage',
+        //'year',
+        //'condition',
+        //'description',
     ];
 
     //Relationship with Makes
