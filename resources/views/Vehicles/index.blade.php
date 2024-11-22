@@ -45,8 +45,11 @@
                                             {{ $vehicle->year }}</td>
                                         <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
                                             {{ $vehicle->description }}</td>
-                                        <td class="px-4 py-2 border border-gray-300 dark:border-gray-700"> <img
-                                                src="{{ asset($vehicle->image) }}" style="height:150px"></td>
+                                        <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                                            <div class="mb-4">
+                                            <img src="{{ asset($vehicle->image) }}"
+                                                alt="{{ $vehicle->make->name ?? 'Unknown Make' }} {{ $vehicle->model->name ?? 'Unknown Model' }}"
+                                                class="w-full h-40 object-cover rounded-md border-2 border-purple-500"></td>
                                         <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
                                             <div class="inline-grid gap-2">
                                                 <a href="{{ route('vehicles.show', $vehicle->id) }}"

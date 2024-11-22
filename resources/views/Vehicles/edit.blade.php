@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-4xl mx-auto py-12 px-6">
-        <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Edit Vehicle</h1>
+        <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">UpdateVehicle</h1>
         <!-- Display All Errors -->
         @if ($errors->any())
             <div class="bg-red-100 text-red-700 p-4 rounded-md mb-6">
@@ -92,7 +92,7 @@
             <div class="mb-4">
                 <label for="image" class="block text-gray-700 dark:text-gray-200 text-sm font-medium">Upload Image</label>
                 <input type="file"
-                    class="w-full mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    class=" form-control w-full mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     id="image" name="image">
                 @if ($vehicle->image)
                     <div class="mt-2">

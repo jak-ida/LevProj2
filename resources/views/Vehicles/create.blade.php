@@ -31,23 +31,39 @@
                     @endforeach
                 </select>
             </div>
+            <!-- Model Dropdown -->
+            {{-- <div class="mb-4">
+                <label for="model" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Model
+                </label>
+                <select name="model_id" id="model" class="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                    <option value="">Select Model</option>
+                </select>
+            </div> --}}
 
             <div class="mb-4">
                 <label for="model" class="block text-gray-700 dark:text-gray-200 text-sm font-medium">Model</label>
-                <select
-                    class="w-full mt-2 p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    id="model" name="model_id" required>
-                    <option value="" disabled selected>Select Model</option>
-                    @foreach ($models as $model)
-                        @if ($models->isEmpty())
-                            <p>No models available for this make.</p>
-                        @else
-                            <option value="{{ $model->id }}">{{ $model->name}}</option>
-                        @endif
-                    @endforeach
+                <select name="model_id" id="model" class="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                    <option value="">Select Model</option>
                 </select>
             </div>
 
+            <script>
+                document.getElementById('make').addEventListener('change', function () {
+                    let makeId = this.value;
+
+
+                    fetch(`/api/models?make_id=${makeId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let modelSelect = document.getElementById('model');
+                            modelSelect.innerHTML = '<option value="">Select Model</option>';
+                            data.forEach(model => {
+                                modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
+                            });
+                        });
+                });
+            </script>
             <div class="mb-4">
                 <label for="price" class="block text-gray-700 dark:text-gray-200 text-sm font-medium">Price</label>
                 <input type="number"
@@ -113,3 +129,4 @@
         </form>
     </div>
 @endsection
+
