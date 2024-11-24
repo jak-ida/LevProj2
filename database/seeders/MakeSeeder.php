@@ -10,7 +10,8 @@ class MakeSeeder extends Seeder
     public function run()
     {
         // Generate 10 makes using the Make model's factory
-        ::factory()->count(10)->create();
+        //Creates duplication
+        Make::factory()->count(10)->create();
     }
 }
-Make
+

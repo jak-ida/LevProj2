@@ -22,7 +22,7 @@ class VehicleFactory extends Factory
             'price' => $this->faker->numberBetween(5000, 100000), // Price range
             'mileage' => $this->faker->numberBetween(1000, 200000), // Mileage range
             'year' => $this->faker->year(),
-            'condition' => $this->faker->randomElement(['new', 'used', 'certified']),
+            'condition' => $this->faker->randomElement(['Bad', 'Good', 'Excellent']),
             'description' => $this->faker->paragraph(3),
         ];
     }

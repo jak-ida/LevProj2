@@ -35,4 +35,29 @@ class SearchController extends Controller
         return view('search.results', compact('results'));
     }
 
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $query = Vehicle::query()->with(['make', 'model']);
+
+        if ($searchTerm) {
+            $query->whereHas('make', function ($q) use ($searchTerm) {
+                    $q->where('name', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->orWhereHas('model', function ($q) use ($searchTerm) {
+                    $q->where('name', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->orWhere('year', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        $vehicles = $query->get();
+
+        return view('vehicles.results', compact('vehicles', 'searchTerm'));
+    }
+
+
+
+
 }

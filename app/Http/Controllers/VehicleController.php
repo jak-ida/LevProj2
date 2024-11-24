@@ -14,7 +14,7 @@ class VehicleController extends Controller
     public function home()
     {
         $makes = Make::all();
-        //dd($makes);
+        
         $vehicles = Vehicle::paginate(20);
         return view('welcome', compact('vehicles', 'makes'));
     }
@@ -26,36 +26,29 @@ class VehicleController extends Controller
         $userId = Auth::id();
 
         // Fetch vehicles where the `user_id` matches the logged-in user
-        $vehicles = Vehicle::where('user_id', $userId)->paginate(20);
+        $vehicles = Vehicle::where('user_id', $userId)->paginate(10);
 
         return view('vehicles.index', compact('vehicles'));
     }
 
     public function show(Vehicle $vehicle)
     {
-        return view('vehicles.show', compact('vehicle'));
+        // Retrieve the make and model names
+        $makeName = $vehicle->make ? $vehicle->make->name : 'Unknown Make'; // Handles case if make is null
+        $modelName = $vehicle->model ? $vehicle->model->name : 'Unknown Model'; // Handles case if model is null
+
+        return view('vehicles.show', compact('vehicle', 'makeName', 'modelName'));
     }
+
+
 
     // Show the form for creating a new vehicle
     public function create(Request $request)
-    {   //Get all makes for the dropdown
-        $makes = Make::all();
+    {
+        //Get all makes for the dropdown
+        $makes = Make::with('model')->get();
 
-        $makeId = $request->input('make_id');
-        $modelId = $request->input('model_id');
-
-        $models = CarModel::query();
-        if ($makeId) {
-            $models = $models->where('make_id', $makeId);
-        }
-
-        if ($modelId) {
-            $models = $models->where('id', $modelId);
-        }
-
-        $results = $models->get();
-
-        return view('vehicles.create', compact('makes', 'results'));
+        return view('vehicles.create', compact('makes'));
     }
 
     // Store a newly created vehicle
@@ -142,6 +135,27 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully.');
     }
 
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        $query = Vehicle::query()->with(['make', 'model']);
+
+        if ($searchTerm) {
+            $query->whereHas('make', function ($q) use ($searchTerm) {
+                $q->where('name', 'LIKE', '%' . $searchTerm . '%');
+            })
+                ->orWhereHas('model', function ($q) use ($searchTerm) {
+                    $q->where('name', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->orWhere('year', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        $vehicles = $query->get();
+
+        return view('vehicles.results', compact('vehicles', 'searchTerm'));
+    }
+
 
     // Delete a vehicle
     public function destroy(Vehicle $vehicle)
@@ -149,6 +163,4 @@ class VehicleController extends Controller
         $vehicle->delete();
         return redirect()->route('vehicles.index')->with('success', 'Vehicle deleted successfully.');
     }
-
-   
 }

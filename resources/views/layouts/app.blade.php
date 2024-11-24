@@ -29,7 +29,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main style="background-image: url('{{ asset('storage/Logos/background_img.jpg') }}');">
                 {{-- {{ $slot}} --}}
                 @yield('content') <!-- This is where child content will be injected -->
             </main>

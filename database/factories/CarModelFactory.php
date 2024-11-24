@@ -2,6 +2,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use \App\Models\Make;
 
 class CarModelFactory extends Factory
 {
@@ -9,7 +10,7 @@ class CarModelFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'make_id' => \App\Models\Make::factory(), // Generates a make for the model that is being created.
+            'make_id' => Make::factory(), // Generates a make for the model that is being created.
         ];
     }
 }

@@ -3,24 +3,17 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Vehicle;
+use App\Models\Make;
 
 class VehicleSeeder extends Seeder
 {
     public function run()
-    {
-        $vehicleCompanies = [
-            ['name' => 'Toyota'],
-            ['name' => 'Ford'],
-            ['name' => 'Honda'],
-            ['name' => 'Tesla'],
-            ['name' => 'BMW'],
-            ['name' => 'Mercedes-Benz'],
-        ];
-
-        DB::table('vehicle_companies')->insert($vehicleCompanies);
+    {   //This works and does not duplicate but does not create the actual vehicles.
+        // Generate 5 makes with 5 models each
+        //Make::factory()
+            // ->count(5)
+            // ->hasModels(5) // Creates 5 related models for each make
+            // ->create();
     }
-
-
 }
