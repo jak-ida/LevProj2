@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
-    <div class="max-w-4xl mx-auto py-12 px-6">
-        <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6">Add New Vehicle</h1>
+    <div class="max-w-4xl mx-auto py-12 px-6" >
+        <h1 class="text-3xl font-semibold text-white dark:text-gray-200 mb-6">Add New Vehicle</h1>
 
         <!-- Display All Errors -->
         <?php if($errors->any()): ?>
@@ -30,17 +30,16 @@
                 </select>
             </div>
             <!-- Model Dropdown -->
-            
-
             <div class="mb-4">
                 <label for="model" class="block text-gray-700 dark:text-gray-200 text-sm font-medium">Model</label>
-                <select name="model_id" id="model" class="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                <select name="model_id" id="model"
+                    class="block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                     <option value="">Select Model</option>
                 </select>
             </div>
 
             <script>
-                document.getElementById('make').addEventListener('change', function () {
+                document.getElementById('make').addEventListener('change', function() {
                     let makeId = this.value;
 
 
@@ -120,6 +119,5 @@
         </form>
     </div>
 <?php $__env->stopSection(); ?>
-
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\dashboard\WheelzandThings\resources\views/vehicles/create.blade.php ENDPATH**/ ?>

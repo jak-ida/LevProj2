@@ -30,7 +30,7 @@
             <?php endif; ?>
 
             <!-- Page Content -->
-            <main>
+            <main style="background-image: url('<?php echo e(asset('storage/Logos/background_img.jpg')); ?>');">
                 
                 <?php echo $__env->yieldContent('content'); ?> <!-- This is where child content will be injected -->
             </main>

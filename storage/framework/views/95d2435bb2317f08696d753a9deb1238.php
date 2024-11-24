@@ -15,7 +15,6 @@
                         <form action="<?php echo e(route('search.filter')); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <!-- Make Dropdown -->
-                            
                             <div class="mb-4">
                                 <label for="make"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -68,6 +67,17 @@
                 </script>
                 <div class=" w-full bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="container"><form method="GET" action="<?php echo e(route('vehicles.search')); ?>" style="margin-top: 20px;">
+                            <input class=" rounded-sm"
+                                type="text"
+                                name="search"
+                                placeholder="Search"
+                                value="<?php echo e(request('search')); ?>"
+                                style="width: 300px; padding: 10px; font-size: 16px;"
+                            >
+                            <button type="submit" style="padding: 10px 20px; font-size: 16px;"class="ml-5 mb-5 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Filter</button>
+                        </form></div>
                         <div class="flex justify-between items-center mb-6">
                             <h1 class="text-2xl font-bold text-black">All Vehicles</h1>
                         </div>

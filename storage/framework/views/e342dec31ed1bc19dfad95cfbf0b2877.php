@@ -6,7 +6,7 @@
         </h2>
      <?php $__env->endSlot(); ?>
 
-    <div class="py-12">
+    <div class="py-12 min-h-screen" style="background-image: url('<?php echo e(asset('storage/Logos/background_img.jpg')); ?>');">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container p-6">
